@@ -1,8 +1,7 @@
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 import colorsys
-import  codecs
 import os
-import time
+
 "识别色例对应rgb"
 def get_dominant_color(image):
 #颜色模式转换，以便输出rgb颜色值
