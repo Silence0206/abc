@@ -187,7 +187,8 @@ if __name__ == '__main__':
     # a=get_dominant_color(Image.open("C:\\Users\Silence\Desktop\倪老师数据\肤色\肤色\\1\Green\\3.jpg"))
     # print(a)
     # handle_pic_main("1.jpg")
-    main_sytle()
+    # main_sytle()
+    print(colorsys.rgb_to_hsv(0,1,1))
 
 
 

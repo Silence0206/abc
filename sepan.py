@@ -1,7 +1,10 @@
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 import colorsys
 import os
-
+"""
+http://blog.csdn.net/taily_duan/article/details/51506776
+http://blog.csdn.net/wudaijun/article/details/9964091
+"""
 
 
 color_one = [("null","null","null"),("152,158,35","126,130,57","null"),
@@ -49,19 +52,18 @@ def judugeColorType(color):
     r,g,b =color
     h,s,v = to_hsv(color)
     print(h,s,v)
-    if 0 <= h <=1/12 or 155/180<h <=1:
+    if (0 <= h <=10/180 or 155/180<h <=1)and (43/255 <=s <=1) and (46/255 <=v <=1):
         return "Red"
-    elif 1/12< h <=1/6:
-        return "Orange"
-    elif 1/6 < h <=1/3:
-        return "Green"
-    elif 1/3 < h <=2/3:
+    elif (26/180 <= h <=34/180) and (43/255 <=s <=1) and (46/255 <=v <=1):
+        return "Yellow"
+    elif 0 < h <=1 and 0< s <1 and (0 <=v <=46/255):
+        return "Black"
+    elif (100/180 <= h <=124/180)and (43/255 <=s <=1) and (46/255 <=v <=1):
         return "Blue"
-    elif 2/3 <h <= 155/180:
-        return "Purple"
+    else:
+        return "Default"
 
-#http://blog.csdn.net/taily_duan/article/details/51506776
-#http://blog.csdn.net/wudaijun/article/details/9964091
+
 
 
 
@@ -97,4 +99,4 @@ if __name__ == '__main__':
     color_str = "127,255,255"# h means the part of 360
     print(color_str)
     color = tuple([int(c) for c in color_str.split(",")])
-    judugeColorType(color)
+    print(judugeColorType(color))
