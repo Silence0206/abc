@@ -49,7 +49,7 @@ def judugeColorType(color):
     r,g,b =color
     h,s,v = to_hsv(color)
     print(h,s,v)
-    if 0 <= h <=1/12:
+    if 0 <= h <=1/12 or 155/180<h <=1:
         return "Red"
     elif 1/12< h <=1/6:
         return "Orange"
@@ -57,8 +57,11 @@ def judugeColorType(color):
         return "Green"
     elif 1/3 < h <=2/3:
         return "Blue"
+    elif 2/3 <h <= 155/180:
+        return "Purple"
 
-
+#http://blog.csdn.net/taily_duan/article/details/51506776
+#http://blog.csdn.net/wudaijun/article/details/9964091
 
 
 
