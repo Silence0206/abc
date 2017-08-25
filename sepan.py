@@ -51,7 +51,6 @@ def draw_pic(color,path):
 def judugeColorType(color):
     r,g,b =color
     h,s,v = to_hsv(color)
-    print(h,s,v)
     if (0 <= h <=10/180 or 155/180<h <=1)and (43/255 <=s <=1) and (46/255 <=v <=1):
         return "Red"
     elif (26/180 <= h <=34/180) and (43/255 <=s <=1) and (46/255 <=v <=1):
@@ -70,33 +69,47 @@ def judugeColorType(color):
 #colorTuple=("152,158,35","126,130,57","null")
 def handle_color(colorTuple,store_path):
     print("start to manage a new tuple")
+    print(colorTuple)
     for color_str in colorTuple:
-        print(color_str)
-        color = tuple([int(c) for c in color_str.split(",")])
-        result = []  # 内容格式为((r.g,b),与色例的距离）
-        for r in range(0, 256, 5):  # 三个for用于穷举所有rgb跟色例rgb算两点间距离
-            for g in range(0, 256, 5):
-                for b in range(0, 256, 5):
-                    dist = color_dist((r, g, b), color)  # 两点间距离
-                    pec = r / g if g != 0 else 0
-                    # print(str(pec))
-                    # if pec > 0.9 and pec < 1.1:  # 这个判断可选 如果是绿色系的话规定g的值最大保证色系不变
-                    if max(r,g,b) ==b:
-                    # if r<70 and g <70 and b<70:
-                        result.append(((r, g, b), dist))  # 加入到result数组
-                    # draw_pic((r,g,b))
-        result_sort = sorted(result, key=lambda x: x[1])  # 将结果集根据距离顺序排序
-        # print(result_sort)
-        path = os.path.join(store_path, color_str)
-        print(path)
-        os.makedirs(path)
-        for pic in result_sort[:600]:  # 排名前200的作为扩展色例
-            draw_pic(pic[0], path)
-            write_txt(pic[0], color_str, path)
+        if color_str !="null":
+            print(color_str)
+            color = tuple([int(c) for c in color_str.split(",")])
+            colorType = judugeColorType(color)
+            print(colorType)
+            result = []  # 内容格式为((r.g,b),与色例的距离）
+            for r in range(0, 256, 5):  # 三个for用于穷举所有rgb跟色例rgb算两点间距离
+                for g in range(0, 256, 5):
+                    for b in range(0, 256, 5):
+                        if colorType == judugeColorType((r,g,b)):
+                            dist = color_dist((r, g, b), color)  # 两点间距离
+                            result.append(((r, g, b), dist))  # 加入到result数组
+            result_sort = sorted(result, key=lambda x: x[1])  # 将结果集根据距离顺序排序
+            path = os.path.join(store_path, color_str)
+            print(path)
+            os.makedirs(path)
+            for pic in result_sort[:600]:  # 排名前200的作为扩展色例
+                draw_pic(pic[0], path)
+                write_txt(pic[0], color_str, path)
+
 
 
 if __name__ == '__main__':
-    color_str = "127,255,255"# h means the part of 360
-    print(color_str)
-    color = tuple([int(c) for c in color_str.split(",")])
-    print(judugeColorType(color))
+    # color_str = "127,255,255"# h means the part of 360
+    # print(color_str)
+    # color = tuple([int(c) for c in color_str.split(",")])
+    # print(judugeColorType(color))
+    color_one = [
+                 ("171,164,66", "153,147,63", "133,127,49"), ("194,165,49", "181,153,40", "null"),
+                 ("null", "null", "null"), ("180,75,76", "null", "null"),
+                  ("186,70,122", "162,95,124", "null"),
+                 ("null", "null", "null"),
+                 ("186,61,157", "176,74,154", "null"), ("165,73,173", "152,82,158", "null"),
+                 ("142,82,175", "null", "null"), ("133,90,165", "null", "null"),
+                 ("100,50,156", "null", "null"), ("86,51,166", "70,58,133", "null"),
+                 ("null", "null", "null"), ("null", "null", "null"), ("59,112,135", "null", "null"),
+                 ("32,116,133", "null", "null"), ("22,120,115", "null", "null"),
+                 ("null", "null", "null"), ("null", "null", "null"), ("null", "null", "null")]
+    for colorTuple in color_one:
+        handle_color(colorTuple, "result")
+
+
