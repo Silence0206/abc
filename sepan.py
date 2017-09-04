@@ -72,14 +72,15 @@ def handle_color(colorTuple,store_path):
     print(colorTuple)
     for color_str in colorTuple:
         if color_str !="null":
-            print(color_str)
             color = tuple([int(c) for c in color_str.split(",")])
+            print(color)
+            r_,g_,b_=color
             colorType = judugeColorType(color)
             print(colorType)
             result = []  # 内容格式为((r.g,b),与色例的距离）
-            for r in range(0, 256, 5):  # 三个for用于穷举所有rgb跟色例rgb算两点间距离
-                for g in range(0, 256, 5):
-                    for b in range(0, 256, 5):
+            for r in range(r_-50, r_+50, 1):  # 三个for用于穷举所有rgb跟色例rgb算两点间距离
+                for g in range(g_-50, g_+50, 1):
+                    for b in range(b_-50, b_+50, 1):
                         if colorType == judugeColorType((r,g,b)):
                             dist = color_dist((r, g, b), color)  # 两点间距离
                             result.append(((r, g, b), dist))  # 加入到result数组
@@ -94,22 +95,20 @@ def handle_color(colorTuple,store_path):
 
 
 if __name__ == '__main__':
-    # color_str = "127,255,255"# h means the part of 360
-    # print(color_str)
-    # color = tuple([int(c) for c in color_str.split(",")])
-    # print(judugeColorType(color))
-    color_one = [
-                 ("171,164,66", "153,147,63", "133,127,49"), ("194,165,49", "181,153,40", "null"),
-                 ("null", "null", "null"), ("180,75,76", "null", "null"),
-                  ("186,70,122", "162,95,124", "null"),
-                 ("null", "null", "null"),
-                 ("186,61,157", "176,74,154", "null"), ("165,73,173", "152,82,158", "null"),
-                 ("142,82,175", "null", "null"), ("133,90,165", "null", "null"),
-                 ("100,50,156", "null", "null"), ("86,51,166", "70,58,133", "null"),
-                 ("null", "null", "null"), ("null", "null", "null"), ("59,112,135", "null", "null"),
-                 ("32,116,133", "null", "null"), ("22,120,115", "null", "null"),
-                 ("null", "null", "null"), ("null", "null", "null"), ("null", "null", "null")]
-    for colorTuple in color_one:
-        handle_color(colorTuple, "result")
+
+    color_nine = [
+
+
+                  ( "208,186,202", "null"), ("185,152,181", "216,213,218", "null", "null"),
+                  ("214,201,202", "null", "null", "null"), ("191,186,197", "null", "null", "null"),
+                  ("169,154,185", "185,180,196", "null", "null"), ("129,123,171", "163,157,185", "196,194,203", "null"),
+                  ("97,154,183", "129,168,189", "175,102,202", "null"), ("111,160,185", "174,194,206", "null", "null"),
+                  ("119,167,188", "155,185,199", "180,196,203", "null"), ("88,162,178", "121,179,194", "160,197,207"),
+                  ("70,162,163", "131,186,188", "155,200,201", "null"),
+                  ("69,163,151", "141,189,187", "174,202,201", "null"),
+                  ("94,170,146", "110,175,153", "162,184,179", "null"),
+                  ("98,181,131", "134,194,159", "145,196,168", "null")]
+    for colorTuple in color_nine:
+        handle_color(colorTuple, "result9")
 
 
